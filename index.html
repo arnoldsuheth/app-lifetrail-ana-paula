@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-BR" data-tema="ouro">
 <head>
-<meta name="versao" content="Life Trail Ana Paula · v1.2.1-teste · 2026-11-14">
+<meta name="versao" content="Life Trail Ana Paula · v1.2.3-teste · 2026-11-14">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
@@ -122,6 +122,16 @@ body.home-foto .top{background:linear-gradient(180deg,color-mix(in srgb,var(--bg
 .principal.viva b{font-size:11.5px;letter-spacing:.01em}
 .pet-flut{width:74px;height:74px}
 .pet-flut .corpo-f{font-size:38px}
+
+/* telas largas (computador grande): tudo centralizado num bloco de 1280px */
+@media(min-width:1320px){
+ .nav{left:calc(50vw - 640px + 20px)!important}
+ .pet-flut{right:calc(50vw - 640px + 14px)!important}
+ .hero-foto{left:-140px!important;right:-40px!important;-webkit-mask-image:linear-gradient(180deg,#000 0%,#000 45%,rgba(0,0,0,.5) 70%,transparent 98%),linear-gradient(90deg,transparent 0%,#000 24%,#000 78%,transparent 100%)!important;mask-image:linear-gradient(180deg,#000 0%,#000 45%,rgba(0,0,0,.5) 70%,transparent 98%),linear-gradient(90deg,transparent 0%,#000 24%,#000 78%,transparent 100%)!important}
+ #pm-intro{align-items:center!important;padding-right:0!important;padding-left:0!important}
+ #pm-intro .ab-foto{inset:0 auto 0 calc(50vw - 640px)!important;width:760px!important;background-position:50% 25%!important;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 22%,#000 66%,transparent 100%),linear-gradient(180deg,#000 0%,#000 70%,transparent 100%)!important;mask-image:linear-gradient(90deg,transparent 0%,#000 22%,#000 66%,transparent 100%),linear-gradient(180deg,#000 0%,#000 70%,transparent 100%)!important}
+ #pm-intro .ab-cena{width:500px!important;margin-left:620px}
+}
 
 /* a tela nao desliza para os lados */
 html,body{max-width:100%;overflow-x:clip;overscroll-behavior-x:none}
@@ -969,7 +979,7 @@ setInterval(()=>{if(tela==='inicio'&&!document.hidden){const a=document.querySel
 
 const GUIA=[
  ['Primeiros passos','<p>Abra o link no <b>Safari</b> (iPhone) ou no <b>Chrome</b> (Android). Toque em <b>Compartilhar → Adicionar à Tela de Início</b>: o Life Trail vira um app com a sua foto no ícone.</p><p><b>Período de teste</b>: o app abre direto, sem senha, e os dados ficam neste aparelho. Use por 3 dias e conte o que achou.</p><p>Depois da aprovação, colocamos a sua <b>senha</b> no mesmo link: você cria a senha no primeiro acesso, deixa marcado <b>Lembrar neste aparelho</b> e o que você já anotou continua lá, agora salvo na nuvem e protegido. O olho ao lado da senha mostra o que você digitou.</p>'],
- ['Abertura do dia','<p>Ao entrar aparece o <b>Bom dia / Boa tarde / Boa noite</b> com a sua foto.</p><p><b>Incline o celular</b>: o cartão de vidro acompanha o movimento. No iPhone, toque uma vez na tela para liberar o movimento.</p><p>Para entrar, <b>arraste para cima</b> (ou toque nas setinhas). A abertura volta sozinha quando você fica mais de 30 minutos fora do app.</p>'],
+ ['Abertura do dia','<p>Ao entrar aparece o <b>Bom dia / Boa tarde / Boa noite</b> com a sua foto.</p><p><b>Incline o celular</b>: a foto e o cartão de vidro acompanham o movimento. No iPhone, toque em <b>Ativar movimento</b> e escolha <b>Permitir</b>.</p><p>Para entrar, <b>arraste para cima</b> (ou toque nas setinhas). A abertura volta sozinha quando você fica mais de 30 minutos fora do app.</p>'],
  ['Início','<p><b>Próxima tarefa</b>: mostra o que vem agora. Toque em <b>Concluir</b> quando terminar ou em <b>Rotina</b> para ver o dia todo.</p><p><b>Versículo do dia</b>: toque para meditar.</p><p><b>4 botões</b>: Beber (cada toque = 1 copo), Ler, Treinar e Rotina.</p><p><b>Resumo do dia</b>: o anel enche conforme você cuida da água, treino, fé e rotina.</p><p><b>Seu painel</b>: todos os cartões são clicáveis e levam ao detalhe. Toque no título <b>Seu painel</b> para compactar ou abrir.</p>'],
  ['Rotina e árvore do dia','<p>Cada bloco do seu horário e cada hábito vira uma <b>flor</b> na árvore. Toque num botão da árvore para florescer.</p><p><b>Blocos do dia</b>: a linha mostra a hora atual ao vivo. Toque num bloco para marcar como feito.</p><p>Logo abaixo ficam <b>Tarefas</b>, <b>Hábitos de hoje</b>, <b>Água</b> e <b>Compromissos</b> (botão <b>Anotar compromisso</b>). Para editar ou apagar, toque no item.</p><p>A <b>floresta</b> mostra os últimos 7 dias.</p>'],
  ['Metas','<p>Use <b>+</b> e <b>−</b> para avançar e <b>Atualizar</b> para digitar o valor certo. O <b>×</b> apaga a meta.</p><p>Crie novas metas no fim da tela (<b>Criar meta</b>): vendas do mês, peças, PA, guardar dinheiro, o que quiser.</p>'],
@@ -981,6 +991,7 @@ const GUIA=[
  ['Histórico','<p>Mostra os últimos 30 dias de água, treino, fé, rotina e finanças. Tudo é clicável: toque num dia para ver o detalhe.</p>'],
  ['Perfil','<p>Troque <b>nome</b>, <b>foto</b> e <b>tema</b> (cores do app). Aqui também fica este guia e a <b>cópia de segurança</b> extra.</p>'],
  ['Navegação e lembretes','<p>No topo: <b>voltar · início · avançar</b>. O <b>sino</b> mostra os lembretes de hoje. A barra de baixo leva às telas principais.</p><p>Lembretes aparecem na tela com o app aberto. Para receber avisos com o app fechado, o app precisa estar na tela de início e com as notificações permitidas.</p>'],
+ ['Ajustes do celular','<p><b>Movimento da abertura (iPhone):</b> na abertura, toque em <b>Ativar movimento</b> e depois em <b>Permitir</b>. Se tocou em Não permitir sem querer, feche o app por completo (arraste para cima na lista de apps abertos) e abra de novo. Se mesmo assim não mexer, veja em <b>Ajustes → Acessibilidade → Movimento</b> se <b>Reduzir Movimento</b> está desligado.</p><p><b>Avisos com o app fechado:</b> abra pelo ícone da tela de início (não pelo Safari), vá em <b>Perfil → Permitir notificações no celular</b> e toque em <b>Permitir</b>. No iPhone, confira também em <b>Ajustes → Notificações → Life Trail</b>.</p><p><b>Instalar como app:</b> no Safari, <b>Compartilhar → Adicionar à Tela de Início</b>. Use sempre pelo ícone novo.</p><p><b>Tela:</b> o app foi feito para usar com o celular em pé. Se as letras estiverem grandes demais, confira em <b>Ajustes → Tela e Brilho → Tamanho do Texto</b>.</p>'],
  ['Compactar seções','<p>Quase toda seção tem uma <b>setinha</b> ao lado do título. Toque no título ou na setinha para compactar ou abrir. O app lembra como você deixou.</p>'],
  ['Precisa de ajuda?','<p>Chame o <b>Studio Evolution Tech</b> no WhatsApp para tirar dúvidas, pedir ajustes ou relatar um problema. Atualizações chegam sozinhas, sem trocar a sua senha e sem perder os seus dados.</p>']];
 function telaAjuda(){return `<h2 class="tit">Como usar</h2><p class="sub">Toque em cada assunto para abrir. Tudo no app é clicável.</p>
@@ -1251,6 +1262,11 @@ carregar();cuidarPet();faseAntes=faseDe(xp());ir(location.hash.slice(1)||'inicio
 #pm-intro .ab-subir svg+svg{margin-top:-14px;opacity:.5;animation-delay:.15s}
 #pm-intro .ab-subir:active{transform:translateX(-50%) scale(.94)}
 #pm-intro .ab-subir{border:0!important;background:transparent!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}#pm-intro .ab-subir:focus{outline:none}#pm-intro .ab-subir:focus-visible{outline:none}#pm-intro .ab-subir span{white-space:nowrap}
+#pm-intro .ab-mov{position:absolute;left:50%;transform:translateX(-50%);bottom:calc(68px + env(safe-area-inset-bottom,0px));display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:8px 16px;border-radius:22px;border:1px solid color-mix(in srgb,var(--acc2,#f3dc9a) 55%,transparent);background:rgba(13,10,12,.45);color:#fff;font:700 12px/1 inherit;letter-spacing:.06em;white-space:nowrap;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:0;animation:pmSurge .6s ease 2.2s forwards}
+#pm-intro .ab-mov svg{width:18px;height:18px;fill:none;stroke:var(--acc2,#f3dc9a);stroke-width:1.8;stroke-linecap:round;animation:pmBalanca 2.4s ease-in-out infinite}
+#pm-intro .ab-mov.ok{border-color:#7fe0b3}
+@keyframes pmBalanca{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}}
+#pm-intro{padding-bottom:calc(126px + env(safe-area-inset-bottom,0px))!important}
 #pm-intro{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important}
 @keyframes pmSeta{0%,100%{transform:translateY(4px);opacity:.35}50%{transform:translateY(-4px);opacity:1}}
 @media(min-width:900px){#pm-intro .ab-foto{background-size:cover!important;background-position:50% 30%!important}#pm-intro{justify-content:center;align-items:flex-end;padding-right:7vw}#pm-intro .ab-foto{inset:0 46% 0 0;background-size:cover;background-position:50% 10%;-webkit-mask-image:linear-gradient(90deg,#000 0%,#000 50%,rgba(0,0,0,.45) 75%,transparent 100%),linear-gradient(180deg,#000 0%,#000 70%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,#000 0%,#000 50%,rgba(0,0,0,.45) 75%,transparent 100%),linear-gradient(180deg,#000 0%,#000 70%,transparent 100%);mask-composite:intersect}#pm-intro .ab-vel{background:radial-gradient(ellipse 60% 70% at 30% 50%,transparent,rgba(13,10,12,.5))}#pm-intro .ab-cena{width:min(44vw,520px)}}
@@ -1280,7 +1296,7 @@ function mostrar(){
  let pts='';for(let i=0;i<(p==='noite'?40:26);i++){const s=(Math.random()*2.5+1.2).toFixed(1);pts+=p==='noite'
   ?`<b style="left:${(Math.random()*100).toFixed(1)}%;top:${(Math.random()*70).toFixed(1)}%;width:${s}px;height:${s}px;animation-duration:${(Math.random()*3+2).toFixed(1)}s;animation-delay:${(Math.random()*2).toFixed(1)}s"></b>`
   :`<b style="left:${(Math.random()*100).toFixed(1)}%;width:${s}px;height:${s}px;animation-duration:${(Math.random()*5+5).toFixed(1)}s;animation-delay:${(Math.random()*4).toFixed(1)}s"></b>`}
- el.innerHTML=`${f?'<div class="ab-foto"></div>':''}<div class="ab-vel"></div><div class="ab-pts">${pts}</div><div class="ab-cena"><div class="ab-cartao"><span class="ab-vidro"></span><i class="ab-borda"></i><div class="ab-cam"><span class="ab-astro">${p==='noite'?LUA:SOL}</span><div class="ab-sau"><span class="ab-sau-in ab-rg">${sau}</span></div><span class="ab-nome ab-rg"><span class="ab-nome-in">${nome()}</span></span><div class="ab-linha"></div><div class="ab-data">${d}</div><div class="ab-frase">${fr}</div></div></div></div><button class="ab-subir" type="button" aria-label="Entrar no app"><svg viewBox="0 0 24 24"><path d="m6 14 6-6 6 6"/></svg><svg viewBox="0 0 24 24"><path d="m6 14 6-6 6 6"/></svg><span>arraste para cima</span></button>`;
+ el.innerHTML=`${f?'<div class="ab-foto"></div>':''}<div class="ab-vel"></div><div class="ab-pts">${pts}</div><div class="ab-cena"><div class="ab-cartao"><span class="ab-vidro"></span><i class="ab-borda"></i><div class="ab-cam"><span class="ab-astro">${p==='noite'?LUA:SOL}</span><div class="ab-sau"><span class="ab-sau-in ab-rg">${sau}</span></div><span class="ab-nome ab-rg"><span class="ab-nome-in">${nome()}</span></span><div class="ab-linha"></div><div class="ab-data">${d}</div><div class="ab-frase">${fr}</div></div></div></div>${(window.DeviceOrientationEvent&&typeof DeviceOrientationEvent.requestPermission==='function'&&matchMedia('(pointer:coarse)').matches&&!sessionStorage.getItem('lt_mov_ok'))?'<button class="ab-mov" type="button"><svg viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M3 9c-1.3 1.8-1.3 4.2 0 6M21 9c1.3 1.8 1.3 4.2 0 6"/></svg><span>Ativar movimento</span></button>':''}<button class="ab-subir" type="button" aria-label="Entrar no app"><svg viewBox="0 0 24 24"><path d="m6 14 6-6 6 6"/></svg><svg viewBox="0 0 24 24"><path d="m6 14 6-6 6 6"/></svg><span>arraste para cima</span></button>`;
  const mexe=(x,y)=>{el.style.setProperty('--mx',Math.max(-1,Math.min(1,x)).toFixed(3));el.style.setProperty('--my',Math.max(-1,Math.min(1,y)).toFixed(3))};
  el.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'){el._mexeu=true;mexe((e.clientX/innerWidth-.5)*2,(e.clientY/innerHeight-.5)*2)}});
  const ori=e=>{if(e.gamma!=null){el._mexeu=true;mexe(e.gamma/30,(e.beta-45)/30)}};addEventListener('deviceorientation',ori);el._ori=ori;
@@ -1293,6 +1309,7 @@ function mostrar(){
  el.addEventListener('pointermove',e=>{if(y0==null)return;dy=Math.min(0,e.clientY-y0);el.style.transform='translateY('+dy+'px)';el.style.opacity=String(Math.max(.2,1+dy/(innerHeight*.9)))});
  const solta=()=>{if(y0==null)return;const v=dy/Math.max(1,performance.now()-tt);y0=null;el.style.transition='';if(dy<-innerHeight*.16||(dy<-30&&v<-.5))subir();else{el.style.transform='';el.style.opacity=''}};
  el.addEventListener('pointerup',solta);el.addEventListener('pointercancel',solta);el.addEventListener('click',pedirMov);
+ const bm=el.querySelector('.ab-mov');if(bm)bm.addEventListener('click',e=>{e.stopPropagation();try{DeviceOrientationEvent.requestPermission().then(r=>{if(r==='granted'){try{sessionStorage.setItem('lt_mov_ok','1')}catch(x){}bm.querySelector('span').textContent='Movimento ativado';bm.classList.add('ok');setTimeout(()=>bm.remove(),1600)}else{bm.querySelector('span').textContent='Movimento bloqueado · veja Como usar'}}).catch(()=>{})}catch(x){}});
  el.querySelector('.ab-subir').addEventListener('click',e=>{e.stopPropagation();subir()});
  el.addEventListener('wheel',e=>{if(Math.abs(e.deltaY)>25)subir()},{passive:true});
  function subir(){if(el.classList.contains('sobe'))return;el.style.transform='';el.style.opacity='';el.classList.add('sobe');setTimeout(()=>{removeEventListener('deviceorientation',el._ori);try{el.close()}catch(e){}el.remove();aberto=false;setTimeout(soltar,150)},700)}
