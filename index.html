@@ -825,7 +825,7 @@ const NUVEM=(()=>{const OWNER='arnoldsuheth',REPO='app-lifetrail-ana-paula',DATA
   COFRE=await lerCofre();if(COFRE==='offline'){marca('off');return}if(!COFRE){setup();return}
   if(ss&&ss.token&&ss.key){try{KEY=await crypto.subtle.importKey('raw',unb64(ss.key),{name:'AES-GCM'},true,['encrypt','decrypt']);SES={token:ss.token};await puxar();return}catch(e){}}login()}
  function sair(){lsd(LS_SESS);try{sessionStorage.removeItem(LS_SESS)}catch(e){}location.reload()}
- return {iniciar,agendar(){if(!SES)return;marca('busy');clearTimeout(t);t=setTimeout(enviar,1500)},puxar,sair,trocar(){lsd(LS_SESS);COFRE=null;setup()},estado:()=>estado,ativo:()=>!!SES}})();
+ return {travaLocal,telaCriarSenha,iniciar,agendar(){if(!SES)return;marca('busy');clearTimeout(t);t=setTimeout(enviar,1500)},puxar,sair,trocar(){lsd(LS_SESS);COFRE=null;setup()},estado:()=>estado,ativo:()=>!!SES}})();
 window.NUVEM=NUVEM;
 
 
@@ -1170,7 +1170,7 @@ document.addEventListener('click',e=>{const a=e.target.closest('[data-ir],[data-
  case 'bloco-novo':editarBloco(null);return;
  case 'bloco-x':S.blocos=S.blocos.filter(x=>x.id!==id);break;
  case 'notif':if(!('Notification' in window)){toast('Este navegador não permite notificações. Instale o app na tela de início.');return}Notification.requestPermission().then(p=>toast(p==='granted'?'Notificações ativadas 🔔':'Notificações não permitidas'));return;
- case 'trocar-senha':localStorage.removeItem('lifetrail_ana-paula_senha');telaCriarSenha(true,()=>{});return;
+ case 'trocar-senha':localStorage.removeItem('lifetrail_ana-paula_senha');NUVEM.telaCriarSenha(true,()=>{});return;
  case 'nav-voltar':if(HIST.b.length){HIST.f.push(tela);porHist=true;ir(HIST.b.pop())}return;
  case 'nav-avancar':if(HIST.f.length){HIST.b.push(tela);porHist=true;ir(HIST.f.pop())}return;
  case 'nav-inicio':if(tela!=='inicio')ir('inicio');else scrollTo({top:0,behavior:'smooth'});return;
@@ -1223,7 +1223,7 @@ $('#sino').onclick=()=>{const L=lembretes();dlg(`<h3>Lembretes de hoje</h3><div 
 document.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;const g=e.target.closest&&e.target.closest('.vidro');if(!g)return;const b=g.getBoundingClientRect();g.style.setProperty('--mx',(e.clientX-b.left)+'px');g.style.setProperty('--my',(e.clientY-b.top)+'px')},{passive:true});
 addEventListener('hashchange',()=>{const t=location.hash.slice(1);if(t&&t!==tela&&TELAS[t])ir(t)});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!document.body.classList.contains('travado'))render()});
-carregar();cuidarPet();faseAntes=faseDe(xp());travaLocal(()=>{ir(location.hash.slice(1)||'inicio',false);setTimeout(checarLembretes,1500);setTimeout(pedirNome,900);if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{})});
+carregar();cuidarPet();faseAntes=faseDe(xp());NUVEM.travaLocal(()=>{ir(location.hash.slice(1)||'inicio',false);setTimeout(checarLembretes,1500);setTimeout(pedirNome,900);if('serviceWorker' in navigator&&location.protocol==='https:')navigator.serviceWorker.register('sw.js').catch(()=>{})});
 })();
 </script>
 <!-- ABERTURA Life Trail (bom dia/boa tarde/boa noite), cores do tema da cliente -->
