@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-BR" data-tema="ouro">
 <head>
-<meta name="versao" content="Life Trail Ana Paula · v1.2.4 · 2026-11-19">
+<meta name="versao" content="Life Trail Ana Paula · v1.3.0 · 2026-11-25">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
@@ -573,6 +573,28 @@ dialog.dlg-pet{width:min(94vw,460px);max-height:92vh;overflow:auto}
 .plano-h .ii .vii{display:grid;width:40px;height:40px;padding:8px;border-radius:14px;color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent)}
 .vi-sino .onda{animation:viBrilha 1.8s ease-in-out infinite}
 .vi-pomba .asa{transform-origin:100% 100%;animation:viFolhaE 1.4s ease-in-out infinite alternate}
+/* Anotações (25/11/2026) */
+#nt-fab{position:fixed;z-index:34;right:18px;bottom:calc(92px + env(safe-area-inset-bottom));width:58px;height:58px;border-radius:20px;border:1.5px solid rgba(255,255,255,.7);display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--acc2),var(--acc));box-shadow:0 14px 30px -10px var(--acc),inset 0 1px 0 rgba(255,255,255,.7);cursor:pointer;animation:ntPop .35s cubic-bezier(.3,1.6,.5,1)}
+#nt-fab svg{width:28px;height:28px}#nt-fab:active{transform:scale(.92)}@keyframes ntPop{from{transform:scale(.4);opacity:0}}
+@media (min-width:900px){#nt-fab{right:calc(50vw - 600px)}}
+.nt-busca{display:flex;align-items:center;gap:8px;padding:11px 14px;border-radius:16px;background:var(--glass);border:1px solid var(--borda);margin:6px 0 4px;color:var(--sub)}.nt-busca svg{width:18px;height:18px;flex:none}.nt-busca input{flex:1;min-width:0;border:0;background:none;outline:0;font:inherit;color:var(--txt);font-size:15px}
+.nt-pastas{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media (min-width:700px){.nt-pastas{grid-template-columns:repeat(3,1fr)}}
+.nt-pa{border:1px solid var(--borda);background:var(--glass);border-radius:22px;padding:14px;text-align:left;font:inherit;color:var(--txt);cursor:pointer;min-width:0}.nt-pa b{display:block;font-size:15.5px;margin-top:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.nt-pa small{font-size:11.5px;color:var(--sub)}
+.nt-pi,.nt-ii{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;color:#fff;background:var(--c);box-shadow:0 8px 16px -8px var(--c);flex:none}.nt-pi svg,.nt-ii svg{width:20px;height:20px}
+.nt-lista{display:grid;gap:8px}.nt-it{display:flex;align-items:center;gap:12px;width:100%;border:1px solid var(--borda);background:var(--glass);border-radius:18px;padding:12px 14px;text-align:left;font:inherit;color:var(--txt);cursor:pointer}.nt-tx{flex:1;min-width:0}.nt-tx b{display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.nt-tx small{display:block;font-size:11.5px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nt-bar{display:block;height:6px;border-radius:3px;background:color-mix(in srgb,var(--sub) 22%,transparent);margin-top:6px;overflow:hidden}.nt-bar i{display:block;height:100%;border-radius:3px;background:#3fb878}.nt-pin{color:var(--acc)}.nt-pin svg{width:18px;height:18px}
+.nt-vazio{padding:16px;border-radius:20px;background:var(--glass);border:1px dashed color-mix(in srgb,var(--sub) 40%,transparent)}.nt-vazio p{margin:0 0 10px;color:var(--sub);font-size:14px}.nt-sug{display:flex;flex-wrap:wrap;gap:8px}.nt-sug button{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--borda);background:var(--glass2);color:var(--txt);border-radius:14px;padding:9px 12px;font:inherit;font-weight:700;font-size:13.5px;cursor:pointer}.nt-sug svg{width:16px;height:16px}
+.nt-acoes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.nt-acoes .btn{display:flex;align-items:center;justify-content:center;gap:6px}.nt-acoes svg{width:18px;height:18px}
+.nt-chips{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 12px}.nt-chips>*{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--borda);background:var(--glass);color:var(--txt);border-radius:12px;padding:7px 11px;font:inherit;font-weight:700;font-size:12.5px}.nt-chips button{cursor:pointer}.nt-chips .on{background:var(--acc);color:var(--acc-txt);border-color:transparent}.nt-chips svg{width:15px;height:15px}
+.nt-check{padding:4px 14px;border-radius:20px}.nt-li{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid color-mix(in srgb,var(--sub) 16%,transparent)}.nt-li span{flex:1;font-size:15px;font-weight:600;min-width:0;overflow-wrap:anywhere}.nt-li.ok span{text-decoration:line-through;opacity:.5}
+.nt-ck{width:26px;height:26px;border-radius:9px;flex:none;border:2px solid color-mix(in srgb,var(--sub) 55%,transparent);background:none;display:grid;place-items:center;color:#0b3a22;cursor:pointer;padding:0}.nt-li.ok .nt-ck{border-color:transparent;background:linear-gradient(135deg,#8fe6b6,#3fb878)}.nt-ck svg{width:16px;height:16px}
+.nt-x{border:0;background:none;color:var(--sub);opacity:.6;cursor:pointer;padding:4px;display:grid}.nt-x svg{width:16px;height:16px}
+.nt-add{display:flex;align-items:center;gap:8px;padding:10px 0;color:var(--sub)}.nt-add>svg{width:20px;height:20px;flex:none}.nt-add input{flex:1;min-width:0;border:0;background:none;outline:0;font:inherit;font-size:15px;color:var(--txt)}
+.nt-nota{padding:12px;border-radius:20px}.nt-nota textarea{width:100%;min-height:42vh;border:0;background:none;outline:0;resize:vertical;font:inherit;font-size:15.5px;line-height:1.5;color:var(--txt)}
+.nt-lb{display:block;margin-top:10px}.nt-lb small{display:block;font-size:12px;font-weight:700;margin-bottom:4px;color:var(--sub)}.nt-lb select,.nt-lb input{width:100%}.nt-sw{display:flex;gap:10px;align-items:center;font-size:14px}.nt-sw input{width:auto}
+.nt-sheet h3{margin:0}.nt-op{display:flex;gap:12px;align-items:center;width:100%;border:1px solid var(--borda);background:var(--glass);border-radius:18px;padding:12px 14px;margin-top:8px;text-align:left;font:inherit;color:var(--txt);cursor:pointer}.nt-op>span:first-child{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;color:#fff;flex:none}.nt-op svg{width:20px;height:20px}.nt-op b{display:block;font-size:15px}.nt-op small{font-size:12px;color:var(--sub)}
+dialog.dlg-sheet{margin:auto auto 0;width:100%;max-width:560px;border-radius:28px 28px 0 0!important;padding-bottom:calc(20px + env(safe-area-inset-bottom))}
+body.tem-fab .pet-flut{bottom:calc(166px + env(safe-area-inset-bottom))!important}
 </style>
 </head>
 <body>
@@ -589,7 +611,7 @@ dialog.dlg-pet{width:min(94vw,460px);max-height:92vh;overflow:auto}
   <section class="pagina" id="p-perfil"></section>
   <section class="pagina" id="p-biblia"></section>
   <section class="pagina" id="p-ler"></section>
-  <section class="pagina" id="p-historico"></section><section class="pagina" id="p-ajuda"></section>
+  <section class="pagina" id="p-historico"></section><section class="pagina" id="p-notas"></section><section class="pagina" id="p-ajuda"></section>
  </main>
 </div>
 <nav class="nav" id="nav" aria-label="Menu"></nav>
@@ -702,7 +724,7 @@ const FASES=[['Ovo',0],['Bebê',300],['Criança',1200],['Jovem',2500],['Adulto',
 const ACC=[null,['🍼','right:-6%;bottom:6%'],['🎈','right:-14%;top:-18%'],['🎧','left:-4%;top:-6%'],null,['⭐','right:-10%;top:-12%'],['👓','left:50%;top:22%;transform:translateX(-50%)']];
 function sortearEsp(ex){const k=Object.keys(ESP).filter(x=>x!==ex);const n=k.filter(x=>x!=='arnold');return n[Math.floor(Math.random()*n.length)]}
 function novoPet(ex){const e=sortearEsp(ex);S.pet={esp:e,nome:e==='arnold'?'':'',nasc:hoje(),visto:hoje()}}
-const nomePet=()=>faseDe(xp())===0?'Ovo misterioso':(S.pet.nome||'Sem nome')
+const nomePet=()=>faseDe(xp())===0?'Pet misterioso':(S.pet.nome||'Sem nome')
 function pontosDia(d){return cuidadoDia(d).total}
 function pontosDiaAntigo(d){const ag=Math.min(S.meta_agua,S.agua[d]||0);const tar=S.tarefas.filter(t=>t.feito===d).length;const hab=Object.values(S.habDias[d]||{}).filter(Boolean).length;
  const tr=S.treino.feitos.includes(d);const fe=!!S.fe[d];return ag*2+tar*5+hab*5+(tr?15:0)+(fe?5:0)}
@@ -1002,7 +1024,7 @@ const GUIA=[
  ['Bíblia','<p><b>Salmos</b> (um por dia), <b>Provérbios</b> (o capítulo do dia do mês) e <b>Bíblia em 1 ano</b> (cerca de 15 minutos por dia). A leitura abre dentro do app e fica marcada no histórico.</p>'],
  ['Treino','<p>A semana de treinos já vem pronta. Marque o treino do dia como feito. Para mudar exercícios ou dias, toque em <b>Editar treino</b>.</p>'],
  ['Ciclo','<p>Toque em <b>Calcular meu ciclo</b> e informe a última menstruação. Depois use <b>Minha menstruação começou hoje</b> a cada mês. O app avisa o período fértil e quando a próxima está chegando.</p>'],
- ['Bichinho virtual','<p>Um <b>ovo misterioso</b> flutua pela tela. A espécie é surpresa. Quando nascer, você escolhe o nome.</p><p>Ele cresce com o seu cuidado do dia (água, treino, fé e rotina) e passa por várias fases. Toque nele para ver como está.</p>'],
+ ['Bichinho virtual','<p>Um <b>pet misterioso</b> flutua pela tela. A espécie é surpresa. Quando nascer, você escolhe o nome.</p><p>Ele cresce com o seu cuidado do dia (água, treino, fé e rotina) e passa por várias fases. Toque nele para ver como está.</p>'],
  ['Histórico','<p>Mostra os últimos 30 dias de água, treino, fé, rotina e finanças. Tudo é clicável: toque num dia para ver o detalhe.</p>'],
  ['Perfil','<p>Troque <b>nome</b>, <b>foto</b> e <b>tema</b> (cores do app). Aqui também fica este guia e a <b>cópia de segurança</b> extra.</p>'],
  ['Navegação e lembretes','<p>No topo: <b>voltar · início · avançar</b>. O <b>sino</b> mostra os lembretes de hoje. A barra de baixo leva às telas principais.</p><p>Lembretes aparecem na tela com o app aberto. Para receber avisos com o app fechado, o app precisa estar na tela de início e com as notificações permitidas.</p>'],
@@ -1014,6 +1036,99 @@ function telaAjuda(){return `<h2 class="tit">Como usar</h2><p class="sub">Toque 
  <button class="btn p cheio" data-ir="inicio" style="margin-top:20px">Voltar ao início</button>`}
 const TELAS={ajuda:telaAjuda,inicio,rotina,ciclo:telaCiclo,treino,financas,metas,perfil,biblia,ler:telaLer,historico};
 const NAV=[['inicio','Início','casa'],['rotina','Rotina','rotina'],['biblia','Bíblia','livro'],['ciclo','Ciclo','flor'],['treino','Treino','halter'],['perfil','Perfil','perfil']];
+window.LT_NOTAS=true;
+/* ---------- Anotações (25/11/2026): pastas, checklists e notas rápidas, com botão + flutuante ---------- */
+P.pasta='<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>';
+P.lista='<path d="M10 6h10M10 12h10M10 18h10"/><path d="m3 6 1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"/>';
+P.nota='<path d="M5 4h10l4 4v12H5z"/><path d="M14 4v5h5M8 13h8M8 17h5"/>';
+P.pino='<path d="M9 4h6l-1 6 3 3H7l3-3z"/><path d="M12 13v7"/>';
+P.busca='<circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/>';
+P.lixo='<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>';
+const NT=(()=>{
+ const CORES=['#7a4cf0','#3fb878','#e46fa3','#f0a33a','#4aa8ff','#b98bff'];
+ const base=()=>{if(!S.notas)S.notas={pastas:[],itens:[]};return S.notas};
+ let pasta=null,item=null,busca='';
+ const itensDe=id=>base().itens.filter(x=>x.p===id);
+ const prog=x=>{const L=x.lista||[];return [L.filter(i=>i.ok).length,L.length]};
+ // checklist que repete: desmarca sozinho no dia seguinte
+ function repetir(){const h=hoje();base().itens.forEach(x=>{if(x.diario&&x.dia!==h){(x.lista||[]).forEach(i=>i.ok=false);x.dia=h}})}
+ function cartao(x){const [f,t]=prog(x),pa=base().pastas.find(p=>p.id===x.p);
+  return `<button class="nt-it" data-nt="abrir" data-id="${x.id}"><span class="nt-ii" style="--c:${pa?pa.cor:'#7a4cf0'}">${ic(x.tipo==='check'?'lista':'nota')}</span><span class="nt-tx"><b>${esc(x.t)}</b><small>${pa?esc(pa.t)+' · ':''}${x.tipo==='check'?(t?f+' de '+t+' feitos':'checklist vazio'):(esc((x.txt||'').slice(0,60))||'nota vazia')}${x.diario?' · todo dia':''}</small>${x.tipo==='check'&&t?`<i class="nt-bar"><i style="width:${Math.round(f/t*100)}%"></i></i>`:''}</span>${x.fixo?`<span class="nt-pin">${ic('pino')}</span>`:''}</button>`}
+ function telaN(){repetir();const N=base();
+  if(item){const x=N.itens.find(i=>i.id===item);if(x)return telaItem(x);item=null}
+  if(pasta){const p=N.pastas.find(i=>i.id===pasta);if(p)return telaPasta(p);pasta=null}
+  const q=busca.trim().toLowerCase();
+  const achados=q?N.itens.filter(x=>(x.t+' '+(x.txt||'')+' '+(x.lista||[]).map(i=>i.t).join(' ')).toLowerCase().includes(q)):[];
+  const fix=N.itens.filter(x=>x.fixo);
+  return `<h2 class="tit">Anotações</h2><p class="sub">Suas pastas, checklists e ideias. Toque no + para criar.</p>
+  <label class="nt-busca">${ic('busca')}<input id="nt-q" placeholder="Buscar em todas as pastas" value="${esc(busca)}" autocomplete="off"></label>
+  ${q?`<div class="sec"><h3>Resultado</h3><div class="nt-lista">${achados.length?achados.map(cartao).join(''):'<p class="sub">Nada encontrado.</p>'}</div></div>`:`
+  ${fix.length?`<div class="sec"><h3>Fixados</h3><div class="nt-lista">${fix.map(cartao).join('')}</div></div>`:''}
+  <div class="sec"><h3>Pastas</h3>${N.pastas.length?`<div class="nt-pastas">${N.pastas.map(p=>{const I=itensDe(p.id),pend=I.filter(x=>x.tipo==='check').reduce((a,x)=>{const [f,t]=prog(x);return a+(t-f)},0);
+    return `<button class="nt-pa" data-nt="pasta" data-id="${p.id}" style="--c:${p.cor}"><span class="nt-pi">${ic('pasta')}</span><b>${esc(p.t)}</b><small>${I.length} assunto(s)${pend?' · '+pend+' pendente(s)':''}</small></button>`}).join('')}</div>`+(()=>{const F=['Loja','Equipe','Pessoal','Igreja','Compras','Ideias'].filter(t=>!N.pastas.some(p=>p.t.toLowerCase()===t.toLowerCase()));return F.length?`<div class="nt-sug" style="margin-top:10px">${F.map(t=>`<button data-nt="pasta-sug" data-t="${t}">${ic('mais')} ${t}</button>`).join('')}</div>`:''})()
+   :`<div class="nt-vazio"><p>Você ainda não tem pastas. Que tal começar por uma destas?</p><div class="nt-sug">${['Loja','Equipe','Pessoal','Igreja','Compras','Ideias'].map(t=>`<button data-nt="pasta-sug" data-t="${t}">${ic('mais')} ${t}</button>`).join('')}</div></div>`}</div>
+  ${N.itens.filter(x=>!x.p).length?`<div class="sec"><h3>Sem pasta</h3><div class="nt-lista">${N.itens.filter(x=>!x.p).map(cartao).join('')}</div></div>`:''}`}`}
+ function telaPasta(p){const I=itensDe(p.id).sort((a,b)=>(b.fixo?1:0)-(a.fixo?1:0));
+  return `<button class="voltar" data-nt="voltar">${ic('volta')} Anotações</button><h2 class="tit">${esc(p.t)}</h2><p class="sub">${I.length} assunto(s)</p>
+  <div class="nt-acoes"><button class="btn p" data-nt="novo" data-tipo="check">${ic('lista')} Checklist</button><button class="btn" data-nt="novo" data-tipo="nota">${ic('nota')} Anotação</button></div>
+  <div class="nt-lista sec">${I.length?I.map(cartao).join(''):'<p class="sub">Pasta vazia. Crie um checklist ou uma anotação.</p>'}</div>
+  <div class="eq-rodape"><button class="btn peq" data-nt="pasta-ed">${ic('lapis')} Renomear</button><button class="btn peq" data-nt="pasta-x">${ic('lixo')} Apagar pasta</button></div>`}
+ function telaItem(x){const pa=base().pastas.find(p=>p.id===x.p),[f,t]=prog(x);
+  return `<button class="voltar" data-nt="voltar">${ic('volta')} ${pa?esc(pa.t):'Anotações'}</button><h2 class="tit">${esc(x.t)}</h2>
+  <div class="nt-chips">${x.tipo==='check'?`<span>${f} de ${t} feitos</span>`:''}<button class="${x.diario?'on':''}" data-nt="diario">${x.diario?'repete todo dia':'não repete'}</button><button class="${x.fixo?'on':''}" data-nt="fixar">${ic('pino')} ${x.fixo?'fixado':'fixar'}</button></div>
+  ${x.tipo==='check'?`<div class="vidro nt-check">${(x.lista||[]).map(i=>`<div class="nt-li ${i.ok?'ok':''}"><button class="nt-ck" data-nt="marca" data-i="${i.id}" aria-label="Marcar">${i.ok?ic('check'):''}</button><span>${esc(i.t)}</span><button class="nt-x" data-nt="tira" data-i="${i.id}" aria-label="Tirar item">${ic('x')}</button></div>`).join('')}
+   <div class="nt-add">${ic('mais')}<input id="nt-novo" placeholder="Adicionar item e tocar Enter" enterkeyhint="done" autocomplete="off"><button class="btn p peq" data-nt="add">Pôr</button></div></div>
+   <div class="nt-acoes"><button class="btn" data-nt="limpar">Desmarcar tudo</button><button class="btn" data-nt="rotina">Virar tarefa na Rotina</button></div>`
+  :`<div class="vidro nt-nota"><textarea id="nt-txt" placeholder="Escreva aqui. Salva sozinho.">${esc(x.txt||'')}</textarea></div><div class="nt-acoes"><button class="btn" data-nt="rotina">Virar tarefa na Rotina</button></div>`}
+  <div class="eq-rodape"><button class="btn peq" data-nt="item-ed">${ic('lapis')} Renomear ou mudar de pasta</button><button class="btn peq" data-nt="item-x">${ic('lixo')} Apagar</button></div>`}
+ const opcPastas=sel=>`<option value="">Sem pasta</option>`+base().pastas.map(p=>`<option value="${p.id}" ${p.id===sel?'selected':''}>${esc(p.t)}</option>`).join('');
+ function criar(tipo){const N=base();
+  if(tipo==='pasta')return dlg(`<h3>Nova pasta</h3><form><input name="t" required maxlength="30" placeholder="ex.: Loja, Igreja, Compras"><div class="dlg-acoes"><button type="button" class="btn" data-fechar>Cancelar</button><button class="btn p">Criar</button></div></form>`,F=>{const p={id:uid(),t:F.get('t').trim(),cor:CORES[N.pastas.length%CORES.length]};N.pastas.push(p);pasta=p.id;item=null;if(tela!=='notas')ir('notas')});
+  dlg(`<h3>${tipo==='check'?'Novo checklist':'Anotação rápida'}</h3><form><input name="t" required maxlength="60" placeholder="${tipo==='check'?'ex.: Abertura da loja':'ex.: Ideia para a vitrine'}">
+   <label class="nt-lb"><small>Pasta</small><select name="p">${opcPastas(pasta)}</select></label>
+   ${tipo==='check'?'<label class="nt-lb nt-sw"><input type="checkbox" name="d"> Desmarcar sozinho todo dia (ex.: abertura e fechamento)</label>':''}
+   <div class="dlg-acoes"><button type="button" class="btn" data-fechar>Cancelar</button><button class="btn p">Criar</button></div></form>`,F=>{
+   const x={id:uid(),p:F.get('p')||'',t:F.get('t').trim(),tipo,lista:[],txt:'',fixo:false,diario:!!F.get('d'),dia:hoje(),criado:Date.now()};N.itens.unshift(x);item=x.id;pasta=x.p||null;if(tela!=='notas')ir('notas')})}
+ function menu(){dlg(`<div class="nt-sheet"><h3>Criar</h3><p class="sub">rápido, sem sair do que está fazendo</p>
+  ${[['check','lista','linear-gradient(135deg,#8fe6b6,#3fb878)','Novo checklist','ex.: abertura da loja, compras'],['nota','nota','linear-gradient(135deg,#c1abff,#7a4cf0)','Anotação rápida','uma ideia, um recado, um número'],['pasta','pasta','linear-gradient(135deg,#ffa9cc,#d9558f)','Nova pasta','para juntar assuntos parecidos']].map(([t,i,c,a,b])=>`<button class="nt-op" data-nt="criar" data-tipo="${t}"><span style="background:${c}">${ic(i)}</span><span><b>${a}</b><small>${b}</small></span></button>`).join('')}
+  ${window.LT_VENDAS?`<button class="nt-op" data-nt="venda"><span style="background:linear-gradient(135deg,#ffd28a,#f0a33a)">${ic('grafico')}</span><span><b>Lançar venda de hoje</b><small>atalho para Vendas</small></span></button>`:''}
+  <button class="btn cheio" data-fechar style="margin-top:8px">Fechar</button></div>`,()=>{});document.getElementById('dlg').classList.add('dlg-sheet');document.getElementById('dlg').addEventListener('close',()=>document.getElementById('dlg').classList.remove('dlg-sheet'),{once:true})}
+ function fab(){let b=document.getElementById('nt-fab');const quer=tela==='inicio'||tela==='notas';
+  if(!quer){if(b)b.remove();return}if(!b){b=document.createElement('button');b.id='nt-fab';b.setAttribute('aria-label','Criar anotação');b.innerHTML=ic('mais');b.onclick=menu;document.body.append(b)}}
+ const atual=()=>base().itens.find(i=>i.id===item);
+ function addItem(){const i=document.getElementById('nt-novo'),x=atual();if(!i||!x||!i.value.trim())return;x.lista.push({id:uid(),t:i.value.trim(),ok:false});salvar();render();setTimeout(()=>{const n=document.getElementById('nt-novo');if(n)n.focus()},30)}
+ document.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.id==='nt-novo'){e.preventDefault();addItem()}});
+ let tq;document.addEventListener('input',e=>{if(e.target.id==='nt-q'){busca=e.target.value;clearTimeout(tq);tq=setTimeout(()=>{const pos=e.target.selectionStart;render();const n=document.getElementById('nt-q');if(n){n.focus();n.setSelectionRange(pos,pos)}},250)}
+  if(e.target.id==='nt-txt'){const x=atual();if(x){x.txt=e.target.value;clearTimeout(tq);tq=setTimeout(salvar,500)}}});
+ document.addEventListener('click',e=>{const a=e.target.closest('[data-nt]');if(!a)return;e.preventDefault();const t=a.dataset.nt,N=base(),x=atual();
+  const fecha=()=>{const d=a.closest('dialog');if(d)d.close()};
+  switch(t){
+   case 'criar':fecha();setTimeout(()=>criar(a.dataset.tipo),60);return;
+   case 'venda':fecha();VD.abrir('p-vendas');return;
+   case 'pasta':pasta=a.dataset.id;item=null;break;
+   case 'pasta-sug':{const p={id:uid(),t:a.dataset.t,cor:CORES[N.pastas.length%CORES.length]};N.pastas.push(p);toast('Pasta '+p.t+' criada');break}
+   case 'abrir':item=a.dataset.id;break;
+   case 'voltar':if(item){item=null}else pasta=null;break;
+   case 'novo':criar(a.dataset.tipo);return;
+   case 'marca':{const i=x.lista.find(y=>y.id===a.dataset.i);if(i)i.ok=!i.ok;x.dia=hoje();if(x.lista.length&&x.lista.every(y=>y.ok))toast('Checklist completo!');break}
+   case 'tira':x.lista=x.lista.filter(y=>y.id!==a.dataset.i);break;
+   case 'add':addItem();return;
+   case 'limpar':x.lista.forEach(y=>y.ok=false);break;
+   case 'diario':x.diario=!x.diario;x.dia=hoje();toast(x.diario?'Vai desmarcar sozinho todo dia':'Não repete mais');break;
+   case 'fixar':x.fixo=!x.fixo;break;
+   case 'rotina':dlg(`<h3>Virar tarefa</h3><form><p class="sub">"${esc(x.t)}" vai para a sua Rotina.</p><label class="nt-lb"><small>Dia</small><input type="date" name="d" value="${hoje()}"></label><label class="nt-lb"><small>Horário (opcional)</small><input type="time" name="h"></label><div class="dlg-acoes"><button type="button" class="btn" data-fechar>Cancelar</button><button class="btn p">Pôr na Rotina</button></div></form>`,F=>{S.agenda.push({id:uid(),t:x.t,d:F.get('d')||hoje(),h:F.get('h')||'',ok:false});toast('Está na sua Rotina')});return;
+   case 'item-ed':dlg(`<h3>Editar</h3><form><input name="t" required maxlength="60" value="${esc(x.t)}"><label class="nt-lb"><small>Pasta</small><select name="p">${opcPastas(x.p)}</select></label><div class="dlg-acoes"><button type="button" class="btn" data-fechar>Cancelar</button><button class="btn p">Salvar</button></div></form>`,F=>{x.t=F.get('t').trim();x.p=F.get('p')||''});return;
+   case 'item-x':if(confirm('Apagar "'+x.t+'"?')){N.itens=N.itens.filter(i=>i.id!==x.id);item=null;toast('Apagado')}else return;break;
+   case 'pasta-ed':{const p=N.pastas.find(i=>i.id===pasta);dlg(`<h3>Renomear pasta</h3><form><input name="t" required maxlength="30" value="${esc(p.t)}"><div class="dlg-acoes"><button type="button" class="btn" data-fechar>Cancelar</button><button class="btn p">Salvar</button></div></form>`,F=>{p.t=F.get('t').trim()});return}
+   case 'pasta-x':{const p=N.pastas.find(i=>i.id===pasta),n=itensDe(pasta).length;if(!confirm(n?'Apagar a pasta "'+p.t+'"? Os '+n+' assunto(s) dela ficam em "Sem pasta".':'Apagar a pasta "'+p.t+'"?'))return;N.itens.forEach(i=>{if(i.p===p.id)i.p=''});N.pastas=N.pastas.filter(i=>i.id!==p.id);pasta=null;break}
+  }
+  salvar();if(tela!=='notas')ir('notas');else{render();scrollTo({top:0})}});
+ return {tela:telaN,fab,menu,base,prog,repetir}})();
+if(window.LT_NOTAS){const ib=NAV.findIndex(n=>n[0]==='biblia');if(ib>=0)NAV.splice(ib,1,['notas','Notas','pasta']);else NAV.splice(NAV.length-1,0,['notas','Notas','pasta']);TELAS.notas=NT.tela;const _rN=render;render=function(){_rN.apply(this,arguments);NT.fab()}} // Bíblia sai da barra e continua no Início
+
+// Anotações (25/11/2026): o + flutuante não fica por cima do pet
+(()=>{const _rT=render;render=function(){_rT.apply(this,arguments);document.body.classList.toggle('tem-fab',tela==='inicio'||tela==='notas')}})();
+VI.pasta='<svg viewBox="0 0 32 32" class="vi"><path d="M5 10a2.5 2.5 0 0 1 2.5-2.5h5l2.5 2.5h9.5A2.5 2.5 0 0 1 27 12.5v10a2.5 2.5 0 0 1-2.5 2.5h-17A2.5 2.5 0 0 1 5 22.5z"/><path d="M11 17h10"/></svg>';
 const HIST={b:[],f:[]};let porHist=false;
 let tela='inicio';
 function ir(t,topo=true){if(!TELAS[t])t='inicio';if(!porHist&&t!==tela){HIST.b.push(tela);HIST.f=[]}porHist=false;tela=t;if(location.hash.slice(1)!==t)history.replaceState(null,'','#'+t);render();if(topo)scrollTo({top:0})}
@@ -1051,6 +1166,7 @@ function inicio(){const r=rotinaHoje();const pct=r.total?Math.round(r.feitos/r.t
  return `<button class="vidro resumo-dia tilt" data-ir="rotina"><span class="rs-anel"><svg viewBox="0 0 72 72"><defs><linearGradient id="rsG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--acc2)"/><stop offset="1" stop-color="var(--acc)"/></linearGradient></defs><circle cx="36" cy="36" r="30" class="rs-fundo"/><circle cx="36" cy="36" r="30" class="rs-prog" style="stroke-dasharray:${R};--off:${R*(1-pc/100)};stroke-dashoffset:${R}"/></svg><b>${pc}<small>%</small></b></span>
  <span class="rs-txt"><small>Resumo do dia</small><b>${fr}</b><span class="rs-chips">${ch('agua','#3b8ff0',(S.agua[h]||0)+'/'+S.meta_agua,cd.agua>=1)}${ch('treino','#f0708a',cd.treino>=1?'feito':'treino',cd.treino>=1)}${ch('livro','#9b6bf2',cd.fe?'lido':'Palavra',cd.fe)}${ch('rotina','#2fb07f',r.feitos+'/'+r.total,cd.rotina>=1)}</span>${atual?`<em>agora: ${esc(atual.t)}</em>`:''}</span></button>`})()}
  </div><div class="col-b"><div class="sec sec-home"><h3>Seu painel</h3><div class="infos">
+  ${(()=>{const N=NT.base(),fx=N.itens.find(x=>x.fixo&&x.tipo==='check');return `<button class="vidro info tilt" data-ir="notas">${vi('pasta','#9b6bf2')}<small>Anotações</small><b>${fx?esc(fx.t):N.itens.length?N.itens.length+' assunto(s)':'Criar a primeira'}</b><span>${fx?(([a,b])=>a+' de '+b+' feitos')(NT.prog(fx)):N.pastas.length+' pasta(s) · toque no +'}</span></button>`})()}
   <button class="vidro info tilt" data-ir="rotina">${vi('relogio','#f0708a')}<small>Próximo bloco</small><b>${prox?esc(prox.t):'Tudo em dia'}</b><span>${prox?prox.ini+'–'+prox.fim:'nenhum bloco pendente'}</span></button>
   <button class="vidro info tilt" data-ir="rotina">${vi('arvore','#2fb07f')}<small>Árvore de hoje</small><b>${fa} de ${it.length} flores</b><span>${fa===it.length&&it.length?'florida! ✨':'toque para florescer'}</span></button>
   <button class="vidro info tilt" data-ir="biblia">${vi('livro','#9b6bf2')}<small>Bíblia hoje</small><b>Salmo ${sal} · Pv ${dm}</b><span>${b.anual.inicio?'plano anual em andamento':'planos de leitura'}</span></button>
