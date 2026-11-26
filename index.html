@@ -863,11 +863,55 @@ function eventosHoje(){const h=hoje();const ev=blocosDe(h).filter(b=>!(S.blocosF
  return ev}
 function avisar(e){const el=document.createElement('button');el.className='lembrete-tela vidro';el.dataset.ir=e.ir;el.innerHTML=`<span class="lemb-ic">${VI[e.ic]||''}</span><div><small>${e.hora} · lembrete</small><b>${esc(e.t)}</b></div><i>${ic('x')}</i>`;document.body.append(el);requestAnimationFrame(()=>el.classList.add('on'));
  const tira=()=>{el.classList.remove('on');setTimeout(()=>el.remove(),400)};el.addEventListener('click',tira);setTimeout(tira,12000);
- try{if('Notification' in window&&Notification.permission==='granted'&&navigator.serviceWorker&&navigator.serviceWorker.ready)navigator.serviceWorker.ready.then(r=>r.showNotification('Life Trail',{body:e.t,tag:e.id,icon:'icon-192.png'})).catch(()=>{})}catch(x){}}
+ try{if(!pushDevice&&'Notification' in window&&Notification.permission==='granted'&&navigator.serviceWorker&&navigator.serviceWorker.ready)navigator.serviceWorker.ready.then(r=>r.showNotification('Life Trail',{body:e.t,tag:e.id,icon:'icon-192.png'})).catch(()=>{})}catch(x){}}
 function checarLembretes(){if(!S)return;const dt=new Date();const agora=dt.getHours()*60+dt.getMinutes();
  eventosHoje().forEach(e=>{const m=minDe(e.hora);if(agora>=m&&agora<m+20&&!LEMB_VISTOS.has(e.id)&&!(S.lembVistos||{})[e.id]){LEMB_VISTOS.add(e.id);S.lembVistos=S.lembVistos||{};S.lembVistos[e.id]=1;try{localStorage.setItem(CHAVE,JSON.stringify(S))}catch(x){}avisar(e)}})}
 setInterval(checarLembretes,30000);document.addEventListener('visibilitychange',()=>{if(!document.hidden){checarLembretes();if(window.NUVEM&&NUVEM.ativo())NUVEM.puxar()}});
 
+
+
+/* ---------- 26/11/2026: avisos com o app fechado (servidor app-push do Studio). O texto vai cifrado; só este aparelho lê ---------- */
+const PUSH_URL='https://mgqwzaizkllkqqqbbcna.supabase.co/functions/v1/app-push',PUSH_APP='lifetrail-ana-paula',PUSH_LS='lifetrail_ana-paula_push_v1',PUSH_DB='lifetrail-ana-paula-push';
+let pushDevice=null,pushTimer,pushBusy=false,pushSig='';
+try{pushDevice=JSON.parse(localStorage.getItem(PUSH_LS))}catch(e){}
+const b64u=b=>btoa(String.fromCharCode(...new Uint8Array(b))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+const un64=s=>Uint8Array.from(atob(s.replace(/-/g,'+').replace(/_/g,'/')),c=>c.charCodeAt(0));
+const horaOk=h=>/^([01]\d|2[0-3]):[0-5]\d$/.test(h||'');
+function pushDB(){return new Promise((ok,no)=>{const r=indexedDB.open(PUSH_DB,1);r.onupgradeneeded=()=>r.result.createObjectStore('keys');r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)})}
+async function pushKey(){const db=await pushDB();const salvo=await new Promise((ok,no)=>{const r=db.transaction('keys','readonly').objectStore('keys').get('payload');r.onsuccess=()=>ok(r.result);r.onerror=()=>no(r.error)});
+ if(salvo){db.close();return crypto.subtle.importKey('raw',un64(salvo),'AES-GCM',false,['encrypt'])}
+ const k=await crypto.subtle.generateKey({name:'AES-GCM',length:256},true,['encrypt','decrypt']),raw=b64u(await crypto.subtle.exportKey('raw',k));
+ await new Promise((ok,no)=>{const tx=db.transaction('keys','readwrite');tx.objectStore('keys').put(raw,'payload');tx.oncomplete=()=>ok();tx.onerror=()=>no(tx.error)});db.close();return k}
+async function pushEncrypt(m,k){const iv=crypto.getRandomValues(new Uint8Array(12));return {iv:b64u(iv),data:b64u(await crypto.subtle.encrypt({name:'AES-GCM',iv},k,new TextEncoder().encode(JSON.stringify(m))))}}
+async function pushAPI(path,body,token){const r=await fetch(PUSH_URL+'/'+path+(body?'':'?app='+PUSH_APP),{method:body?'POST':'GET',headers:body?{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{})}:{},body:body?JSON.stringify(body):undefined});const j=await r.json().catch(()=>({}));if(!r.ok)throw Object.assign(Error(j.error||'Sem conexão com os avisos'),{status:r.status});return j}
+function pushTemplates(){const L=[],h0=hoje();
+ for(let i=0;i<7;i++){const d=somaDias(h0,i);
+  blocosDe(d).forEach(b=>{if(horaOk(b.ini)&&!(S.blocosFeitos[d]||{})[b.id])L.push({id:'b-'+b.id+'-'+d,d,h:b.ini,body:{t:b.t,hora:b.ini}});
+   if(/igreja/i.test(b.t)&&horaOk(b.ini)){const m=minDe(b.ini)-30;if(m>=0){const hh=pad(Math.floor(m/60))+':'+pad(m%60);L.push({id:'pre-'+b.id+'-'+d,d,h:hh,body:{t:b.t+' em 30 minutos',hora:hh}})}}});
+  S.agenda.filter(a=>a.d===d&&horaOk(a.h)&&!a.ok).forEach(a=>L.push({id:'a-'+a.id+'-'+d,d,h:a.h,body:{t:a.t,hora:a.h}}))}
+ try{const tr=treinoHoje();if(tr.ex.length&&!S.treino.feitos.includes(h0)){const tb=blocosDe(h0).find(b=>/treino/i.test(b.t));if(tb&&horaOk(tb.ini))L.push({id:'tr-'+h0,d:h0,h:tb.ini,body:{t:'Hora do treino: '+tr.n,hora:tb.ini,ir:'treino'}})}}catch(e){}
+ return L.map(x=>({...x,id:String(x.id).replace(/[^\w-]/g,'').slice(0,120)})).slice(0,480)}
+async function pushPayloads(L){const k=await pushKey(),out=[];for(const x of L){const {body,...r}=x;out.push({...r,payload:await pushEncrypt(body,k)})}return out}
+async function pushSync(forca){if(pushBusy||!pushDevice||!S)return false;pushBusy=true;
+ try{const reg=await navigator.serviceWorker.ready,sub=await reg.pushManager.getSubscription();if(!sub)return false;
+  const L=pushTemplates(),tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'America/Sao_Paulo',sig=JSON.stringify({L,e:sub.endpoint,tz});if(!forca&&sig===pushSig)return true;
+  await pushAPI('sync',{schedule:await pushPayloads(L),subscription:sub.toJSON(),timezone:tz},pushDevice.token);pushSig=sig;return true}
+ catch(e){if(e.status===401){pushDevice=null;localStorage.removeItem(PUSH_LS)}return false}finally{pushBusy=false}}
+function agendarPush(){if(!pushDevice)return;clearTimeout(pushTimer);pushTimer=setTimeout(()=>pushSync(),1500)}
+async function ativarPush(){
+ const ios=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+ if(ios&&!(navigator.standalone||matchMedia('(display-mode: standalone)').matches)){toast('No Safari: Compartilhar, depois Adicionar à Tela de Início. Abra pelo ícone e toque aqui de novo.');return}
+ if(!('Notification' in window)||!('PushManager' in window)||!('serviceWorker' in navigator)){toast('Este navegador não permite notificações. Instale o app na tela de início.');return}
+ try{const p=await Notification.requestPermission();if(p!=='granted'){toast('Permita as notificações do Life Trail nos Ajustes do celular.');return}
+  await navigator.serviceWorker.register('sw.js');const reg=await navigator.serviceWorker.ready,pub=await pushAPI('key');
+  const sub=await reg.pushManager.getSubscription()||await reg.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:un64(pub.key)});
+  const tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'America/Sao_Paulo',L=pushTemplates();
+  let code='';if(!pushDevice){code=(prompt('Digite o código de ativação que o Arnold te mandou:')||'').trim();if(!code){toast('Peça ao Arnold o código de ativação.');return}}
+  if(!pushDevice){const token=Array.from(crypto.getRandomValues(new Uint8Array(32))).map(x=>x.toString(16).padStart(2,'0')).join('');const dev={id:crypto.randomUUID(),token};
+   await pushAPI('enroll',{app:PUSH_APP,...dev,code,subscription:sub.toJSON(),timezone:tz,schedule:await pushPayloads(L)});pushDevice=dev;localStorage.setItem(PUSH_LS,JSON.stringify(dev))}
+  await pushSync(true);toast('Pronto! Os lembretes chegam no celular na hora certa, mesmo com o app fechado.')}
+ catch(e){toast(e.message||'Não deu certo agora. Tente de novo.')}}
+setInterval(()=>{if(!document.hidden)agendarPush()},60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)agendarPush()});
 
 /* ---------- v4: flutuante, banner, árvore, bíblia ---------- */
 function petSheet(){const h=hoje();const p=S.pet,E=ESP[p.esp],x=xp(),f=faseDe(x);const prox=FASES[f+1]?FASES[f+1][1]:FIM;const base=FASES[f][1];const pp=Math.min(100,Math.round((x-base)/(prox-base)*100));const cd=cuidadoDia(h);
@@ -1144,7 +1188,7 @@ function recolhiveis(root){let st={};try{st=JSON.parse(localStorage.getItem('lif
   const b=document.createElement('button');b.type='button';b.className='sec-tg';b.setAttribute('aria-label','Compactar ou abrir: '+h.textContent.trim());b.innerHTML='<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>';h.append(b);h.classList.add('sec-h');
   const fechado=(k in st)?st[k]:sec.hasAttribute('data-fechado');sec.classList.toggle('fechado',!!fechado);b.setAttribute('aria-expanded',String(!fechado));
   h.addEventListener('click',e=>{const alvo=e.target.closest('a,input,select,textarea,button');if(alvo&&alvo!==b)return;e.stopPropagation();const f=!sec.classList.contains('fechado');sec.classList.toggle('fechado',f);b.setAttribute('aria-expanded',String(!f));st[k]=f;try{localStorage.setItem('lifetrail_ana-paula_rec',JSON.stringify(st))}catch(x){}})})}
-function render(){try{if(S&&S.treino&&S.treino.plano&&!S._semEmoji){Object.values(S.treino.plano).forEach(x=>{if(x&&x.n)x.n=semEmoji(x.n)});S._semEmoji=1}}catch(e){}if(S.pet)cuidarPet();const amb=$('#ambiente');if(amb&&!amb.dataset.ok){amb.style.backgroundImage='url('+(function(){try{return localStorage.getItem(CHAVE_FOTO)?foto():AMBIENTE}catch(e){return AMBIENTE}})()+')';amb.dataset.ok=1}document.querySelectorAll('.pagina').forEach(p=>{const on=p.id==='p-'+tela;p.classList.toggle('on',on);if(!on)p.innerHTML=''});const el=$('#p-'+tela);el.innerHTML=TELAS[tela]();recolhiveis(el);document.body.classList.toggle('home-foto',tela==='inicio');heroFoto(el);
+function render(){try{agendarPush()}catch(e){}try{if(S&&S.treino&&S.treino.plano&&!S._semEmoji){Object.values(S.treino.plano).forEach(x=>{if(x&&x.n)x.n=semEmoji(x.n)});S._semEmoji=1}}catch(e){}if(S.pet)cuidarPet();const amb=$('#ambiente');if(amb&&!amb.dataset.ok){amb.style.backgroundImage='url('+(function(){try{return localStorage.getItem(CHAVE_FOTO)?foto():AMBIENTE}catch(e){return AMBIENTE}})()+')';amb.dataset.ok=1}document.querySelectorAll('.pagina').forEach(p=>{const on=p.id==='p-'+tela;p.classList.toggle('on',on);if(!on)p.innerHTML=''});const el=$('#p-'+tela);el.innerHTML=TELAS[tela]();recolhiveis(el);document.body.classList.toggle('home-foto',tela==='inicio');heroFoto(el);
  const navAtivo=NAV.some(n=>n[0]===tela)?tela:(tela==='ler'?'biblia':(['financas','metas','historico'].includes(tela)?'inicio':tela==='ajuda'?'perfil':tela));const gn=$('#gnav');if(gn){gn.querySelector('[data-acao=nav-voltar]').disabled=!HIST.b.length;gn.querySelector('[data-acao=nav-avancar]').disabled=!HIST.f.length;gn.querySelector('[data-acao=nav-inicio]').classList.toggle('on',tela==='inicio')}petFlutuante();const dd=$('#dlg');if(dd.open&&dd.dataset.tipo==='pet'){const w=dd.querySelector('.pet-wrap');if(w)w.innerHTML=petSheet()}
  $('#nav').innerHTML=NAV.map(([id,l,i])=>'<button data-ir="'+id+'" class="'+(id===navAtivo?'on':'')+'" aria-label="'+l+'">'+ic(i)+'<span>'+l+'</span></button>').join('');
  $('#sino').classList.toggle('tem',lembretes().length>0);checarEvolucao();if(avisoPet){const av=avisoPet;avisoPet=null;setTimeout(()=>dlg(`<h3>${av.t}</h3><p class="sub" style="font-size:15px">${av.m}</p><div class="dlg-acoes"><button class="btn p" data-fechar>Vamos lá!</button></div>`,()=>{}),400)}
@@ -1246,7 +1290,7 @@ function perfil(){const T=[['ceu','Céu','linear-gradient(180deg,#8ec5f5,#e9f3fc
   <div class="grade2" style="margin-top:12px"><button class="btn p" data-acao="copia">${ic('nuvem')} Fazer cópia</button><button class="btn" data-acao="restaurar">Restaurar</button></div></div></div>
  ${PREVIA?`<div class="sec"><h3>Só na prévia: testar bichinho</h3><div class="vidro cartao grade2"><select id="demo-esp">${Object.keys(ESP).map(k=>`<option value="${k}" ${k===S.pet.esp?'selected':''}>${ESP[k].n}</option>`).join('')}</select><select id="demo-fase">${FASES.map((f,i)=>`<option value="${f[1]+5}" ${faseDe(xp())===i?'selected':''}>${f[0]}</option>`).join('')}</select></div></div>`:''}<div class="sec"><h3>Meus bichinhos</h3><div class="album"><div><span>${ESP[S.pet.esp].img?`<img src="${PET_ARNOLD}" alt="">`:(faseDe(xp())?ESP[S.pet.esp].e[Math.max(0,faseDe(xp())-1)]:'🥚')}</span><b>${esc(nomePet())}</b><small>agora</small></div>${S.album.slice().reverse().map(p=>`<div><span>${ESP[p.esp].img?`<img src="${PET_ARNOLD}" alt="">`:ESP[p.esp].e[5]}</span><b>${esc(p.nome)}</b><small>${esc(p.como)}</small></div>`).join('')}</div>${S.pet.esp==='arnold'||faseDe(xp())===0?'':`<label class="campo" style="margin-top:10px">Nome do bichinho<input id="nome-pet" value="${esc(S.pet.nome)}" maxlength="20"></label>`}</div>
  <div class="sec"><h3>Senha e lembretes</h3><div class="vidro cartao" style="display:grid;gap:10px"><p class="sub" style="font-size:14px">🔒 Seus dados ficam salvos neste aparelho, protegidos pela sua senha.</p>
- <button class="btn" data-acao="notif"><span class="tag-ic">${VI.sino}</span>Permitir notificações no celular</button><p class="dica" style="margin:0">Os lembretes aparecem na tela enquanto o app está aberto. No iPhone, as notificações só funcionam com o app instalado na tela de início.</p>
+ <button class="btn" data-acao="notif"><span class="tag-ic">${VI.sino}</span>${pushDevice?'Notificações ligadas (toque para atualizar)':'Ativar notificações no celular'}</button><p class="dica" style="margin:0">Com as notificações ligadas, cada lembrete chega no topo do celular na hora certa, mesmo com o app fechado, e fica na tela de bloqueio. No iPhone, abra o app pelo ícone da tela de início.</p>
  <button class="btn" data-acao="trocar-senha">Trocar senha</button></div></div>
  <div class="sec"><h3>Meta de água</h3><div class="vidro cartao grade2"><span class="sub" style="align-self:center">Copos por dia</span><input type="number" id="meta-agua" min="4" max="16" value="${S.meta_agua}" aria-label="Copos de água por dia"></div></div>
  <p class="dica" style="text-align:center;margin-top:24px">Life Trail da Ana Paula · feito pelo Studio Evolution Tech</p>`}
@@ -1288,7 +1332,7 @@ document.addEventListener('click',e=>{const a=e.target.closest('[data-ir],[data-
  case 'bloco-ed':editarBloco(S.blocos.find(x=>x.id===id));return;
  case 'bloco-novo':editarBloco(null);return;
  case 'bloco-x':S.blocos=S.blocos.filter(x=>x.id!==id);break;
- case 'notif':if(!('Notification' in window)){toast('Este navegador não permite notificações. Instale o app na tela de início.');return}Notification.requestPermission().then(p=>toast(p==='granted'?'Notificações ativadas 🔔':'Notificações não permitidas'));return;
+ case 'notif':ativarPush();return;
  case 'trocar-senha':localStorage.removeItem('lifetrail_ana-paula_senha');localStorage.removeItem('lifetrail_ana-paula_lembrar');NUVEM.telaCriarSenha(true,()=>{});return;
  case 'nav-voltar':if(HIST.b.length){HIST.f.push(tela);porHist=true;ir(HIST.b.pop())}return;
  case 'nav-avancar':if(HIST.f.length){HIST.b.push(tela);porHist=true;ir(HIST.f.pop())}return;
